@@ -1,0 +1,19 @@
+title: Google Cloud Logging Bucket Deleted
+id: a3d80088-e251-44b2-b824-97d4860e546e
+status: test
+description: Detects when a logging bucket is deleted in Google Cloud.
+references:
+  - https://cloud.google.com/logging/docs/buckets
+author: Murtaza Udaipurwala
+date: 2025-06-09
+modified: 2025-06-09
+tags:
+  - attack.impact
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    gcp.audit.protoPayload.methodName: google.logging.v2.ConfigServiceV2.DeleteBucket
+  condition: selection
+level: medium

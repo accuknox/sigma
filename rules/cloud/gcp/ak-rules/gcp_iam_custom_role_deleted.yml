@@ -1,0 +1,20 @@
+title: Google Cloud IAM Custom Role Deleted
+id: 68eb7a00-b385-47bc-a1b7-73e1f41358d0
+status: test
+description: Detects when an IAM custom role is deleted in Google Cloud.
+references:
+  - https://cloud.google.com/iam/docs/roles-overview
+author: Murtaza Udaipurwala
+date: 2025-06-09
+modified: 2025-06-09
+tags:
+  - attack.impact
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    gcp.audit.protoPayload.methodName: google.iam.admin.v1.DeleteRole
+    gcp.audit.protoPayload.response.deleted: "true"
+  condition: selection
+level: medium
