@@ -1,0 +1,20 @@
+title: GCP VPC Route Created
+id: 4f6fa5b6-dc97-4f4e-9d85-05dcae4d14f2
+description: Detects the creation of a custom VPC route in GCP using Audit Logs.
+status: test
+author: suryatyagi@accuknox.com
+date: 2025/06/10
+references:
+  - https://cloud.google.com/vpc/docs/audit-logging
+tags:
+  - attack.impact
+logsource:
+  product: gcp
+detection:
+  selection:
+    protoPayload.methodName: "v1.compute.routes.insert"
+    resource.type: "gce_route"
+  condition: selection
+falsepositives:
+  - Expected behavior during new route provisioning or infrastructure changes
+level: medium
