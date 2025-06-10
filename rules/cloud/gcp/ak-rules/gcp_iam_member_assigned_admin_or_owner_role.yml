@@ -1,0 +1,46 @@
+title: Google Cloud IAM Member Assigned Owner OR Admin Role
+id: 1ed6fa09-479a-4df8-8c80-823c309c9e18
+status: test
+description: Detects when an IAM member is assigned an owner or admin role in Google Cloud.
+references:
+  - https://cloud.google.com/iam/docs/roles-overview
+  - https://cloud.google.com/iam/docs/roles-permissions
+author: Murtaza Udaipurwala
+date: 2025-06-09
+modified: 2025-06-09
+tags:
+  - attack.impact
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    gcp.audit.protoPayload.serviceData.policyDelta.bindingDeltas.action: ADD
+    gcp.audit.protoPayload.methodName: SetIamPolicy
+    gcp.audit.protoPayload.serviceData.policyDelta.bindingDeltas.role|contains:
+      # source: https://cloud.google.com/iam/docs/roles-permissions
+      - roles/owner
+      - roles/resourcemanager.organizationAdmin
+      - roles/resourcemanager.projectIamAdmin
+      - roles/accesscontextmanager.policyAdmin
+      - roles/axt.admin
+      - roles/actions.Admin
+      - roles/serviceconsumermanagement.tenancyUnitsAdmin
+      - roles/advisorynotifications.admin
+      - roles/ml.admin
+      - roles/recommender.alloydbAdmin
+      - roles/analyticshub.admin
+      - roles/analyticshub.listingAdmin
+      - roles/gkemulticloud.admin
+      - roles/ml.jobOwner
+      - roles/ml.modelOwner
+      - roles/ml.operationOwner
+      - roles/analyticshub.subscriptionOwner
+      - roles/bigquery.dataOwner
+      - roles/certificatemanager.owner
+      - roles/chat.owner
+      - roles/cloudasset.owner
+      - roles/cloudbuild.integrationsOwner
+      - roles/cloudbuild.workerPoolOwner
+  condition: selection
+level: medium
