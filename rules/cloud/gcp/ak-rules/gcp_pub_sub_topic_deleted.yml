@@ -1,0 +1,18 @@
+title: Google Cloud Pub/Sub Topic Deleted
+id: 5fea6938-69c8-4d13-a738-f6eaac1f8239
+status: test
+description: Detects when a Pub/Sub topic is deleted in Google Cloud.
+references:
+  - https://cloud.google.com/pubsub/docs/audit-logging
+author: Pratheep
+date: 2025-06-10
+tags:
+  - attack.impact
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    gcp.audit.protoPayload.methodName: google.pubsub.v1.Publisher.DeleteTopic
+  condition: selection
+level: medium
