@@ -1,0 +1,19 @@
+title: AWS Security Group Inbound Rule Added or Modified
+id: 61e461ee-4c73-444d-8d10-454afb48155c
+status: test
+description: Detects when a Security Group's ingress allow rule is added or modified.
+references:
+  - https://docs.aws.amazon.com/vpc/latest/userguide/security-group-rules.html
+author: Murtaza Udaipurwala
+date: 2025-06-10
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: ec2.amazonaws.com
+    eventName:
+      - AuthorizeSecurityGroupIngress
+      - ModifySecurityGroupRules
+  condition: selection
+level: medium
