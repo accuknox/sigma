@@ -18,7 +18,7 @@ detection:
       - "beta.compute.networkFirewallPolicies.addRule"
       - "beta.compute.networkFirewallPolicies.patchRule"
     resource.type: "gce_firewall_rule"
-    operation.last: "true"
+    operation.first: "true"
   condition: selection
 falsepositives:
   - Expected firewall rule creation during deployment or infrastructure changes
