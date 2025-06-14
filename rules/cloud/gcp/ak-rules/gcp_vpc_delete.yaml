@@ -1,0 +1,19 @@
+title: GCP VPC Network Deletion
+id: 25b9c01c-350d-4b95-bed1-836d04a4f324
+description: Detects deletion of a Virtual Private Cloud (VPC) network in Google Cloud Platform via Audit Logs.
+status: test
+author: suryatyagi@accuknox.com
+date: 2025/06/10
+references:
+  - https://cloud.google.com/vpc/docs/audit-logging
+tags:
+  - attack.impact
+logsource:
+  product: gcp
+detection:
+  selection:
+    protoPayload.methodName: "v1.compute.networks.delete"
+  condition: selection
+falsepositives:
+    - Deletion by authorized administrators during maintenance.
+level: high

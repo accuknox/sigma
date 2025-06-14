@@ -1,0 +1,25 @@
+title: GCP Firewall Rule Created or Policy Rule Added
+id: 98ac3b1d-d181-4d66-9159-0d2beabc189f
+description: Detects creation of a VPC firewall rule or policy, potentially exposing new ports.
+status: test
+author: suryatyagi@accuknox.com
+date: 2025/06/11
+references:
+  - https://cloud.google.com/vpc/docs/audit-logging
+tags:
+  - attack.impact
+logsource:
+  product: gcp
+detection:
+  selection:
+    protoPayload.methodName: 
+      - "beta.compute.firewalls.insert"
+      - "v1.compute.firewalls.patch"
+      - "beta.compute.networkFirewallPolicies.addRule"
+      - "beta.compute.networkFirewallPolicies.patchRule"
+    resource.type: "gce_firewall_rule"
+    operation.first: "true"
+  condition: selection
+falsepositives:
+  - Expected firewall rule creation during deployment or infrastructure changes
+level: high
