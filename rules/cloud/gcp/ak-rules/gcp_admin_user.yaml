@@ -1,0 +1,28 @@
+title: GCP User Granted Admin Role
+description: Detects when a user or service account is assigned an admin/owner/editor role in GCP.
+status: test
+author: suryatyagi@accuknox.com
+date: 2025/06/11
+references:
+  - https://cloud.google.com/vpc/docs/audit-logging
+tags:
+  - attack.impact
+logsource:
+  product: gcp
+detection:
+  existing_user_admin_grant:
+    protoPayload.methodName:
+      - "SetIamPolicy"
+      - "google.iam.admin.v1.SetIamPolicy"
+      - "google.cloud.resourcemanager.v1.SetIamPolicy"
+    protoPayload.serviceData.policyDelta.bindingDeltas.action: "ADD"
+    protoPayload.serviceData.policyDelta.bindingDeltas.role:
+      - "roles/owner"
+  new_user_with_admin:
+    protoPayload.methodName:
+      - "google.iam.admin.v1.CreateServiceAccount"
+      - "google.iam.admin.v1.CreateUser"
+    protoPayload.serviceData.policyDelta.bindingDeltas.role:
+      - "roles/owner"
+  condition: existing_user_admin_grant OR new_user_with_admin
+level: high
