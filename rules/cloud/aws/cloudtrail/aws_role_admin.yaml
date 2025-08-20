@@ -1,12 +1,10 @@
 title: AWS Admin Access Granted to a User or Group
-id: 4a2bfc2d-3db2-41e0-8f2a-aws-admin-grant
 status: test
 description: Detects when an AWS IAM user is granted AdministratorAccess policy or is added to an admin group.
 author: surya.tyagi@accuknox.com
 date: 2025/08/14
 logsource:
-  product: aws
-  service: cloudtrail
+  product: cloudtrail
 detection:
   selection_policy_attach:
     eventName: AttachUserPolicy
@@ -14,7 +12,7 @@ detection:
   selection_group_add:
     eventName: AddUserToGroup
     requestParameters.groupName|re: '(?i)admin'
-  condition: selection_policy_attach OR selection_group_add
+  condition: selection_policy_attach or selection_group_add
 falsepositives:
   - Intentional granting of admin rights
 level: high

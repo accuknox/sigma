@@ -1,11 +1,9 @@
 title: AWS Security Group Allows Inbound SSH or RDP from Anywhere
-id: b2e3a6f0-9e12-4a77-b68f-aws-sg-ssh-rdp
 status: test
 description: Detects AWS Security Groups allowing inbound SSH (22) or RDP (3389) access from any source.
 author: suryatyagi@accuknox.com
 logsource:
-  product: aws
-  service: cloudtrail
+  product: cloudtrail
 detection:
   selection:
     eventName: AuthorizeSecurityGroupIngress
