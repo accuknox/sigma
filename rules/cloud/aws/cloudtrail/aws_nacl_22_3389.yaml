@@ -10,7 +10,7 @@ detection:
     eventSource: "ec2.amazonaws.com"
     eventName: "CreateNetworkAclEntry"
     requestParameters.ruleAction: "allow"
-    requestParameters.egress: 'false'
+    requestParameters.egress: "false"
   selection_ports:
     - requestParameters.portRange.from: 22
     - requestParameters.portRange.to: 22
