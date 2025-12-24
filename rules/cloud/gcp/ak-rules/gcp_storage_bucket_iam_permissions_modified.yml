@@ -1,0 +1,19 @@
+title: Google Cloud Storage Bucket's IAM Permissions Modified
+id: 6ca1d8f5-3925-437d-8826-4e9e3361642b
+status: test
+description: Detects when a storage bucket's IAM permission is modified in Google Cloud.
+references:
+  - https://cloud.google.com/storage/docs/access-control/iam-roles
+author: Murtaza Udaipurwala
+date: 2025-06-09
+modified: 2025-06-09
+tags:
+  - attack.impact
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    gcp.audit.protoPayload.methodName: storage.setIamPermissions
+  condition: selection
+level: medium

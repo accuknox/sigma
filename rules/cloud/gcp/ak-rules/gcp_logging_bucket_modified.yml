@@ -1,0 +1,19 @@
+title: Google Cloud Logging Bucket Modified
+id: ef0bc049-a4ec-4139-ac34-287b45ce84c2
+status: test
+description: Detects when a logging bucket is modified in Google Cloud.
+references:
+  - https://cloud.google.com/logging/docs/buckets
+author: Murtaza Udaipurwala
+date: 2025-06-09
+modified: 2025-06-09
+tags:
+  - attack.impact
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    gcp.audit.protoPayload.methodName: google.logging.v2.ConfigServiceV2.UpdateBucket
+  condition: selection
+level: medium
