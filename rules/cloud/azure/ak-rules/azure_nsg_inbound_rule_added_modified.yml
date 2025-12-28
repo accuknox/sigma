@@ -1,0 +1,22 @@
+title: Azure Network Security Group Inbound Rule Added or Modified
+id: 4ba093ce-d8ff-4e58-9d81-96c3af8a7e83
+status: test
+description: Detects when an inbound rule is added or modified for a NSG
+references:
+  - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
+author: Murtaza Udaipurwala
+date: 2025-06-11
+logsource:
+  product: azure
+  service: azure.activitylogs
+detection:
+  selection_operation_name:
+    operationName: "MICROSOFT.NETWORK/NETWORKSECURITYGROUPS/SECURITYRULES/WRITE"
+  selection_access_allow:
+    properties.requestbody|contains: |-
+      "access":"Allow"
+  selection_direction_inbound:
+    properties.requestbody|contains: |-
+      "direction":"Inbound"
+  condition: selection_operation_name and selection_access_allow and selection_direction_inbound
+level: medium
