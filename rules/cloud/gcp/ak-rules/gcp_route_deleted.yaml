@@ -1,0 +1,21 @@
+title: GCP VPC Route Deleted
+id: 67a9c5d0-5e1b-4adf-b90b-9206c8e1657d
+description: Detects the deletion of a custom VPC route in GCP using Audit Logs.
+status: test
+author: suryatyagi@accuknox.com
+date: 2025/06/10
+references:
+  - https://cloud.google.com/vpc/docs/audit-logging
+tags:
+  - attack.impact
+logsource:
+  product: gcp
+detection:
+  selection:
+    protoPayload.methodName: "v1.compute.routes.delete"
+    resource.type: "gce_route"
+  condition: selection
+falsepositives:
+  - Scheduled network maintenance or automation scripts
+level: medium
+
