@@ -1,0 +1,19 @@
+title: Google Cloud Logging Sink Updated
+id: b32817bb-976f-4620-acd9-6a3c4096023e
+status: test
+description: Detects when a Logging sink is updated in Google Cloud.
+references:
+  - https://cloud.google.com/logging/docs/audit-logging
+  - https://cloud.google.com/logging/docs/export/configure_export_v2
+author: Pratheep
+date: 2025-06-10
+tags:
+  - attack.persistence
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    gcp.audit.protoPayload.methodName: google.logging.v2.ConfigServiceV2.UpdateSink
+  condition: selection
+level: medium

@@ -1,0 +1,18 @@
+title: Google Cloud Pub/Sub Subscription Created
+id: b4285d14-fab5-42bc-bbfd-b2c53c87e7cb
+status: test
+description: Detects when a new Pub/Sub subscription is created in Google Cloud.
+references:
+  - https://cloud.google.com/pubsub/docs/audit-logging
+author: pratheep
+date: 2025-06-10
+tags:
+  - attack.persistence
+logsource:
+  product: gcp
+  service: gcp.audit
+detection:
+  selection:
+    gcp.audit.protoPayload.methodName: google.pubsub.v1.Subscriber.CreateSubscription
+  condition: selection
+level: medium
