@@ -1,0 +1,21 @@
+title: AWS NACL Entry Creation Allowing Port 22 or 3389
+description: Detect creation of a Network ACL entry that allows SSH (22) or RDP (3389), standalone or as part of a range, in AWS.
+author: suryatyagi@accuknox.com
+status: test
+date: 2025/08/14
+logsource:
+  product: cloudtrail
+detection:
+  selection_event:
+    eventSource: "ec2.amazonaws.com"
+    eventName: "CreateNetworkAclEntry"
+    requestParameters.ruleAction: "allow"
+    requestParameters.egress: "false"
+  selection_ports:
+    - requestParameters.portRange.from: 22
+    - requestParameters.portRange.to: 22
+    - requestParameters.portRange.from: 3389
+    - requestParameters.portRange.to: 3389
+  condition: selection_event and selection_ports
+level: high
+
